@@ -3,12 +3,13 @@ package db
 import (
 	"fmt"
 	"os"
+	"presensi-qr-backend/model"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
-func database() *gorm.DB {
+func Database() *gorm.DB {
 	user := os.Getenv("DB_USER")
 	pass := os.Getenv("DB_PASS")
 	host := os.Getenv("DB_HOST")
@@ -26,5 +27,11 @@ func database() *gorm.DB {
 	if err != nil {
 		fmt.Println("err connect to db")
 	}
+	db.AutoMigrate(
+		&model.Attandance{},
+		&model.Event{},
+		&model.QRSession{},
+		&model.User{},
+	)
 	return db
 }
