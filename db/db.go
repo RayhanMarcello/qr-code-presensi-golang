@@ -27,11 +27,13 @@ func Database() *gorm.DB {
 	if err != nil {
 		fmt.Println("err connect to db")
 	}
-	db.AutoMigrate(
+	if err := db.AutoMigrate(
 		&model.Attandance{},
 		&model.Event{},
 		&model.QRSession{},
 		&model.User{},
-	)
+	); err != nil {
+		panic(err)
+	}
 	return db
 }
