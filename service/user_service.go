@@ -17,10 +17,10 @@ func NewUserService(repo repository.UserRepository) *userService {
 }
 
 func (s *userService) Create(name, email, password, role string) (*model.User, error) {
-	_, err := s.repo.FindByEmail(email)
-	if err == nil {
-		return nil, ErrEmailTaken
-	}
+	// _, err := s.repo.FindByEmail(email)
+	// if err == nil {
+	// 	return nil, ErrEmailTaken
+	// }
 	if role == "" {
 		role = "user"
 	}
