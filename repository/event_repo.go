@@ -11,7 +11,7 @@ type GormEvent struct {
 	db *gorm.DB
 }
 
-func newGormEvent(db *gorm.DB) *GormEvent {
+func NewGormEvent(db *gorm.DB) *GormEvent {
 	return &GormEvent{db: db}
 }
 
