@@ -6,12 +6,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type handlerEvent struct {
+type HandlerEvent struct {
 	srv service.EventService
 }
 
-func NewHandlerEvent(srv service.EventService) *handlerEvent {
-	return &handlerEvent{srv: srv}
+func NewHandlerEvent(srv service.EventService) *HandlerEvent {
+	return &HandlerEvent{srv: srv}
 }
 
 type reqEvent struct {
@@ -22,24 +22,25 @@ type reqEvent struct {
 	CreatedBy   uint   `json:"created_by"`
 }
 
-func (h *handlerEvent) CreateEventHandler(c *gin.Context) {
+func (h *HandlerEvent) CreateEventHandler(c *gin.Context) {
 	var req reqEvent
 	err := c.ShouldBindBodyWithJSON(&req)
 	if err != nil {
 		c.JSON(500, gin.H{
 			"message": "isi semua field brow",
 		})
+		return
 	}
 	result, err := h.srv.CreateEvent(req.Title, req.Description, req.StartAt, req.EndAt, req.CreatedBy)
 	if err != nil {
 		c.JSON(500, gin.H{
-			"err": "cannot send to server",
+			"err": err.Error(),
 		})
+		return
 	}
 
 	c.JSON(200, gin.H{
 		"message": "sucsess",
 		"data":    result,
 	})
-
 }
