@@ -13,8 +13,8 @@ type UserRepository interface {
 
 type EventRepository interface {
 	Create(e *model.Event) error
-	FindById(id uint) (*model.Event, error)
-	LastActive() ([]model.Event, error)
+	// FindById(id uint) (*model.Event, error)
+	// LastActive() ([]model.Event, error)
 }
 
 type QRSessionRepository interface {
